@@ -2,6 +2,7 @@ import 'package:chat/models/auth_form_data.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
+  // Comunicação Indireta do componente filho para o componente pai
   final void Function(AuthFormData) onSubmit;
 
   const AuthForm({super.key, required this.onSubmit});
