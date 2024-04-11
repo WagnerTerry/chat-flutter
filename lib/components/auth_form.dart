@@ -13,7 +13,8 @@ class _AuthFormState extends State<AuthForm> {
   final _formData = AuthFormData();
 
   void _submit() {
-    _formKey.currentState?.validate();
+    final isValid = _formKey.currentState?.validate() ?? false;
+    if (!isValid) return;
   }
 
   @override
@@ -31,20 +32,39 @@ class _AuthFormState extends State<AuthForm> {
                   initialValue: _formData.name,
                   onChanged: (name) => _formData.name = name,
                   decoration: const InputDecoration(labelText: 'Nome'),
+                  validator: (localName) {
+                    final name = localName ?? '';
+                    if (name.trim().length < 5) {
+                      return 'Nome deve ter no mínimo 5 caracteres.';
+                    }
+                    return null;
+                  },
                 ),
               TextFormField(
-                key: const ValueKey('email'),
-                initialValue: _formData.email,
-                onChanged: (email) => _formData.email = email,
-                decoration: const InputDecoration(labelText: 'E-mail'),
-              ),
+                  key: const ValueKey('email'),
+                  initialValue: _formData.email,
+                  onChanged: (email) => _formData.email = email,
+                  decoration: const InputDecoration(labelText: 'E-mail'),
+                  validator: (localEmail) {
+                    final email = localEmail ?? '';
+                    if (!email.contains('@')) {
+                      return 'Email informado não é válido';
+                    }
+                    return null;
+                  }),
               TextFormField(
-                key: const ValueKey('password'),
-                initialValue: _formData.password,
-                onChanged: (password) => _formData.password = password,
-                obscureText: true,
-                decoration: const InputDecoration(labelText: 'Senha'),
-              ),
+                  key: const ValueKey('password'),
+                  initialValue: _formData.password,
+                  onChanged: (password) => _formData.password = password,
+                  obscureText: true,
+                  decoration: const InputDecoration(labelText: 'Senha'),
+                  validator: (localPassword) {
+                    final password = localPassword ?? '';
+                    if (password.trim().length < 6) {
+                      return 'Senha deve ter no mínimo 6 caracteres';
+                    }
+                    return null;
+                  }),
               const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: _submit,
