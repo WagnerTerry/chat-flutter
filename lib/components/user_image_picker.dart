@@ -25,7 +25,6 @@ class _UserImagePickerState extends State<UserImagePicker> {
         _image = File(pickedImage.path);
       });
 
-      print(_image);
       widget.onImagePick(_image!);
     }
   }
