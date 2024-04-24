@@ -81,6 +81,20 @@ class ChatPage extends StatelessWidget {
           ],
         ),
       ),
+      // Simular notificação mocada
+      //
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.add),
+      //   onPressed: () {
+      //     Provider.of<ChatNotificationService>(
+      //       context,
+      //       listen: false,
+      //     ).add(ChatNotification(
+      //       title: 'Mais uma notificação!',
+      //       body: Random().nextDouble().toString(),
+      //     ));
+      //   },
+      // ),
     );
   }
 }

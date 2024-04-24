@@ -8,6 +8,10 @@ class ChatNotificationService with ChangeNotifier {
     return _items.length;
   }
 
+  List<ChatNotification> get items {
+    return [..._items];
+  }
+
   void add(ChatNotification notification) {
     _items.add(notification);
     notifyListeners();
