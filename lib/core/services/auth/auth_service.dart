@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:chat/core/models/chat_user.dart';
-import 'package:chat/core/services/auth/auth_mock_service.dart';
+import 'package:chat/core/services/auth/auth_firebase_service.dart';
 
 abstract class AuthService {
   ChatUser? get currentUser;
@@ -27,6 +27,7 @@ abstract class AuthService {
   // em que está definido. Em vez disso, pode retornar uma instância
   // de uma subclasse, outra classe ou até mesmo uma instância já existente.
   factory AuthService() {
-    return AuthMockService();
+    // return AuthMockService();
+    return AuthFirebaseService();
   }
 }

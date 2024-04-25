@@ -10,7 +10,15 @@ class AuthOrAppPage extends StatelessWidget {
   const AuthOrAppPage({super.key});
 
   Future<void> init(BuildContext context) async {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+      apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // Chave de API da Web
+      appId:
+          "x:xxxxxxxxxxxx:android:xxxxxxxxxxxxxxxxxxxxxx", // ID do aplicativo
+      messagingSenderId:
+          "xxxxxxxxxxxx", // ID do remetente (aba Cloud Messaging)
+      projectId: "xxxxx-xxxx-xxxxx", // Código do projeto
+    ));
   }
 
   @override
