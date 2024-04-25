@@ -1,3 +1,4 @@
+import 'package:chat/constants.dart';
 import 'package:chat/core/models/chat_user.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
 import 'package:chat/pages/auth_page.dart';
@@ -10,36 +11,37 @@ class AuthOrAppPage extends StatelessWidget {
   const AuthOrAppPage({super.key});
 
   Future<void> init(BuildContext context) async {
+    //WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-      apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", // Chave de API da Web
-      appId:
-          "x:xxxxxxxxxxxx:android:xxxxxxxxxxxxxxxxxxxxxx", // ID do aplicativo
+      apiKey: Constants.apiKey, // Chave de API da Web
+      appId: Constants.appId, // ID do aplicativo
       messagingSenderId:
-          "xxxxxxxxxxxx", // ID do remetente (aba Cloud Messaging)
-      projectId: "xxxxx-xxxx-xxxxx", // Código do projeto
+          Constants.messagingSenderId, // ID do remetente (aba Cloud Messaging)
+      projectId: Constants.projectId, // Código do projeto
     ));
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: init(context),
-        builder: (ctx, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LoadingPage();
-          } else {
-            return StreamBuilder<ChatUser?>(
-              stream: AuthService().userChanges,
-              builder: (ctx, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const LoadingPage();
-                } else {
-                  return snapshot.hasData ? const ChatPage() : const AuthPage();
-                }
-              },
-            );
-          }
-        });
+      future: init(context),
+      builder: (ctx, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingPage();
+        } else {
+          return StreamBuilder<ChatUser?>(
+            stream: AuthService().userChanges,
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LoadingPage();
+              } else {
+                return snapshot.hasData ? const ChatPage() : const AuthPage();
+              }
+            },
+          );
+        }
+      },
+    );
   }
 }

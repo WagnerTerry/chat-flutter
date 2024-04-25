@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-
+import 'dart:async';
 import 'package:chat/core/models/chat_user.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
