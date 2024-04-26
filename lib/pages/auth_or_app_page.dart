@@ -11,7 +11,6 @@ class AuthOrAppPage extends StatelessWidget {
   const AuthOrAppPage({super.key});
 
   Future<void> init(BuildContext context) async {
-    //WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
         options: const FirebaseOptions(
       apiKey: Constants.apiKey, // Chave de API da Web
