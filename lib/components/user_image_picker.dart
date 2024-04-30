@@ -6,7 +6,10 @@ import 'package:image_picker/image_picker.dart';
 class UserImagePicker extends StatefulWidget {
   final void Function(File image) onImagePick;
 
-  const UserImagePicker({super.key, required this.onImagePick});
+  const UserImagePicker({
+    super.key,
+    required this.onImagePick,
+  });
 
   @override
   State<UserImagePicker> createState() => _UserImagePickerState();
@@ -18,7 +21,10 @@ class _UserImagePickerState extends State<UserImagePicker> {
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(
-        source: ImageSource.gallery, imageQuality: 50, maxWidth: 150);
+      source: ImageSource.gallery,
+      imageQuality: 50,
+      maxWidth: 150,
+    );
 
     if (pickedImage != null) {
       setState(() {
@@ -39,19 +45,18 @@ class _UserImagePickerState extends State<UserImagePicker> {
           backgroundImage: _image != null ? FileImage(_image!) : null,
         ),
         TextButton(
-            onPressed: _pickImage,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(
-                  Icons.image,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Adicionar Imagem')
-              ],
-            ))
+          onPressed: _pickImage,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                Icons.image,
+              ),
+              SizedBox(width: 10),
+              Text('Adicionar Imagem'),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -5,10 +5,12 @@ import 'package:chat/core/models/auth_form_data.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
-  // Comunicação Indireta do componente filho para o componente pai
   final void Function(AuthFormData) onSubmit;
 
-  const AuthForm({super.key, required this.onSubmit});
+  const AuthForm({
+    super.key,
+    required this.onSubmit,
+  });
 
   @override
   State<AuthForm> createState() => _AuthFormState();
@@ -23,10 +25,12 @@ class _AuthFormState extends State<AuthForm> {
   }
 
   void _showError(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(msg),
-      backgroundColor: Theme.of(context).errorColor,
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        backgroundColor: Theme.of(context).errorColor,
+      ),
+    );
   }
 
   void _submit() {
@@ -51,7 +55,9 @@ class _AuthFormState extends State<AuthForm> {
           child: Column(
             children: [
               if (_formData.isSignup)
-                UserImagePicker(onImagePick: _handleImagePick),
+                UserImagePicker(
+                  onImagePick: _handleImagePick,
+                ),
               if (_formData.isSignup)
                 TextFormField(
                   key: const ValueKey('name'),
@@ -67,47 +73,49 @@ class _AuthFormState extends State<AuthForm> {
                   },
                 ),
               TextFormField(
-                  key: const ValueKey('email'),
-                  initialValue: _formData.email,
-                  onChanged: (email) => _formData.email = email,
-                  decoration: const InputDecoration(labelText: 'E-mail'),
-                  validator: (localEmail) {
-                    final email = localEmail ?? '';
-                    if (!email.contains('@')) {
-                      return 'Email informado não é válido';
-                    }
-                    return null;
-                  }),
+                key: const ValueKey('email'),
+                initialValue: _formData.email,
+                onChanged: (email) => _formData.email = email,
+                decoration: const InputDecoration(labelText: 'E-mail'),
+                validator: (localEmail) {
+                  final email = localEmail ?? '';
+                  if (!email.contains('@')) {
+                    return 'E-mail nformado não é válido.';
+                  }
+                  return null;
+                },
+              ),
               TextFormField(
-                  key: const ValueKey('password'),
-                  initialValue: _formData.password,
-                  onChanged: (password) => _formData.password = password,
-                  obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Senha'),
-                  validator: (localPassword) {
-                    final password = localPassword ?? '';
-                    if (password.trim().length < 6) {
-                      return 'Senha deve ter no mínimo 6 caracteres';
-                    }
-                    return null;
-                  }),
+                key: const ValueKey('password'),
+                initialValue: _formData.password,
+                onChanged: (password) => _formData.password = password,
+                obscureText: true,
+                decoration: const InputDecoration(labelText: 'Senha'),
+                validator: (localPassword) {
+                  final password = localPassword ?? '';
+                  if (password.length < 6) {
+                    return 'Nome deve ter no mínimo 6 caracteres.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 12),
               ElevatedButton(
                 onPressed: _submit,
                 child: Text(_formData.isLogin ? 'Entrar' : 'Cadastrar'),
               ),
-              SizedBox(
-                height: 12,
-              ),
               TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _formData.toggleAuthMode();
-                    });
-                  },
-                  child: Text(_formData.isLogin
-                      ? 'Criar uma nova conta'
-                      : 'Já possui conta?'))
+                onPressed: () {
+                  setState(() {
+                    _formData.toggleAuthMode();
+                  });
+                },
+                child: Text(
+                  _formData.isLogin
+                      ? 'Criar uma nova conta?'
+                      : 'Já possui conta?',
+                ),
+              ),
             ],
           ),
         ),

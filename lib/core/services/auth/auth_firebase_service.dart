@@ -43,7 +43,6 @@ class AuthFirebaseService implements AuthService {
     // 1. Upload da foto do usuário
     final imageName = '${credential.user!.uid}.jpg';
     final imageURL = await _uploadUserImage(image, imageName);
-    print('imageURL $imageURL');
 
     // 2. atualizar os atributos do usuário
     credential.user?.updateDisplayName(name);
@@ -68,7 +67,6 @@ class AuthFirebaseService implements AuthService {
 
     final storage = FirebaseStorage.instance;
     final imageRef = storage.ref().child('user_images').child(imageName);
-    print("imageRef, $imageRef");
     await imageRef.putFile(image).whenComplete(() {});
     return await imageRef.getDownloadURL();
   }
