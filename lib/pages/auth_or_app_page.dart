@@ -34,10 +34,10 @@ class AuthOrAppPage extends StatelessWidget {
     // ));
 
     // Configurando o App Check
-    // await FirebaseAppCheck.instance.activate(
-    //   webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
-    //   androidProvider: AndroidProvider.debug,
-    // );
+    await FirebaseAppCheck.instance.activate(
+      webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+      androidProvider: AndroidProvider.debug,
+    );
   }
 
   @override
