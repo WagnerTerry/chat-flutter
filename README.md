@@ -17,3 +17,17 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Doc Configurar o Firebase com Flutter
 - https://firebase.google.com/docs/flutter/setup?hl=pt-br&platform=android
+
+## Regras FireStore
+
+Alternar para modo Nativo.
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+ 			allow read;
+      allow write;    }
+  }
+}
