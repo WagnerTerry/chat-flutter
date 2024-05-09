@@ -33,6 +33,28 @@ class ChatFirebaseService implements ChatService {
         createdAt: DateTime.parse(data['createdAt']),
         userId: data['userId'],
         userName: data['userName'],
-        userImageURL: data['userImageURL']);
+        userImageUrl: data['userImageUrl']);
   }
+}
+
+// .withConverter(
+//   fromFirestore: fromFirestore,
+//   toFirestore: toFirestore,
+// )
+
+// ChatMessage => Map<String, dynamic>
+
+// Map<String, dynamic> => ChatMessage
+ChatMessage _fromFirestore(
+  DocumentSnapshot<Map<String, dynamic>> doc,
+  SnapshotOptions? options,
+) {
+  return ChatMessage(
+    id: doc.id,
+    text: doc['text'],
+    createdAt: DateTime.parse(doc['createdAt']),
+    userId: doc['userId'],
+    userName: doc['userName'],
+    userImageUrl: doc['userImageUrl'],
+  );
 }
