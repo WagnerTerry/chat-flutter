@@ -33,7 +33,7 @@ class ChatFirebaseService implements ChatService {
         createdAt: DateTime.parse(data['createdAt']),
         userId: data['userId'],
         userName: data['userName'],
-        userImageUrl: data['userImageUrl']);
+        userImageURL: data['userImageUrl']);
   }
 }
 
@@ -43,6 +43,18 @@ class ChatFirebaseService implements ChatService {
 // )
 
 // ChatMessage => Map<String, dynamic>
+Map<String, dynamic> _toFirestore(
+  ChatMessage msg,
+  SetOptions? options,
+) {
+  return {
+    'text': msg.text,
+    'createdAt': msg.createdAt.toIso8601String(),
+    'userId': msg.userId,
+    'userName': msg.userName,
+    'userImageUrl': msg.userImageURL,
+  };
+}
 
 // Map<String, dynamic> => ChatMessage
 ChatMessage _fromFirestore(
@@ -55,6 +67,6 @@ ChatMessage _fromFirestore(
     createdAt: DateTime.parse(doc['createdAt']),
     userId: doc['userId'],
     userName: doc['userName'],
-    userImageUrl: doc['userImageUrl'],
+    userImageURL: doc['userImageUrl'],
   );
 }
