@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:chat/core/models/chat_message.dart';
 import 'package:chat/core/models/chat_user.dart';
 import 'package:chat/core/services/chat/chat_service.dart';
@@ -6,7 +7,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class ChatFirebaseService implements ChatService {
   @override
   Stream<List<ChatMessage>> messagesStream() {
-    return const Stream<List<ChatMessage>>.empty();
+    final store = FirebaseFirestore.instance;
+    final snapshots = store
+        .collection('chat')
+        .withConverter(fromFirestore: _fromFirestore, toFirestore: _toFirestore)
+        .snapshots();
+
+    return snapshots.map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return doc.data();
+      }).toList();
+    });
+
+    // Forma alternativa de exibir as mensagens do Firebase
+    // return Stream<List<ChatMessage>>.multi((controller) {
+    //   snapshots.listen((snapshot) {
+    //     List<ChatMessage> lista = snapshot.docs.map((doc) {
+    //       return doc.data();
+    //     }).toList();
+    //     controller.add(lista);
+    //   });
+    // });
   }
 
   @override
@@ -31,11 +52,6 @@ class ChatFirebaseService implements ChatService {
     final doc = await docRef.get();
     return doc.data()!;
   }
-
-// .withConverter(
-//   fromFirestore: fromFirestore,
-//   toFirestore: toFirestore,
-// )
 
 // ChatMessage => Map<String, dynamic>
 // Metodo que converte ChatMessage para os dados que o Firebase espera receber
